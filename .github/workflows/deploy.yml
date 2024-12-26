@@ -1,0 +1,53 @@
+name: Build and Deploy the project
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build and push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code repo
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile   # ./docker/user.Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/payments-app:latest
+
+    - name: Verify Pushed Images 
+      run: docker pull aadeshak/payments-app:latest
+
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     node-version: '14'
+
+    # - name: Install dependencies
+    #   run: npm install
+
+    # - name: Build project
+    #   run: npm run build
+
+    # - name: Deploy to server
+    #   env:
+    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     SERVER_USER: ${{ secrets.SERVER_USER }}
+    #     SERVER_HOST: ${{ secrets.SERVER_HOST }}
+    #   run: |
+    #     echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    #     ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "mkdir -p ~/app"
+    #     scp -r ./build/* $SERVER_USER@$SERVER_HOST:~/app/
