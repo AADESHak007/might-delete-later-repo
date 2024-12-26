@@ -24,7 +24,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./Dockerfile   # ./docker/user.Dockerfile
+        file: ./Dockerfile   # ./docker/user.Dockerfile ..
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/payments-app:latest
 
