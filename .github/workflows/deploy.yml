@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - main
-      - master
 
 jobs:
-  build and push:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,3 +42,4 @@ jobs:
             docker rmi aadeshak/payments-app:latest || true
             docker pull aadeshak/payments-app:latest
             docker run -d -p 3005:3000 --name payments-app aadeshak/payments-app:latest
+
