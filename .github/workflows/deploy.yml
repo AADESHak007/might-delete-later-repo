@@ -1,4 +1,4 @@
-name: Build and Deploy the project
+name: Running the deploy.yml file Build and Deploy the project 
 
 on:
   push:
