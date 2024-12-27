@@ -3,12 +3,11 @@ name: Build and Deploy the project
 on:
   push:
     branches:
-      - main
       - master
       - feature/*
 
 jobs:
-  build and push:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
