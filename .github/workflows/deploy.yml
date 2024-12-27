@@ -1,4 +1,4 @@
-name: Running the deploy.yml file  
+name: Running the deploy.yml 
 
 on:
   push:
