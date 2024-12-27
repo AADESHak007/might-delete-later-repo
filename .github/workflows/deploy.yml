@@ -31,15 +31,23 @@ jobs:
     - name: Verify Pushed Images 
       run: docker pull aadeshak/payments-app:latest
 
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     node-version: '14'
 
-    - name: Deploy to server
-      uses: appleboy/ssh-action@v2.1.0
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          sudo docker pull aadeshak/payments-app:latest
-          sudo docker stop payments-app || true
-          sudo docker rm payments-app || true
-          sudo docker run -d -p 3005:3000 --name payments-app aadeshak/payments-app:latest
+    # - name: Install dependencies
+    #   run: npm install
+
+    # - name: Build project
+    #   run: npm run build
+
+    # - name: Deploy to server
+    #   env:
+    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     SERVER_USER: ${{ secrets.SERVER_USER }}
+    #     SERVER_HOST: ${{ secrets.SERVER_HOST }}
+    #   run: |
+    #     echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    #     ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "mkdir -p ~/app"
+    #     scp -r ./build/* $SERVER_USER@$SERVER_HOST:~/app/
